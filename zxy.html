@@ -8,22 +8,22 @@
     <title>New Test</title>
     <link rel="stylesheet" type="text/css" href="" />
     <style type="text/css">
-        #container {
-            width: 620px;
-            height: 620px;
-            padding: 10px;
-            border: 3px solid red;
-            position: relative;
-        }
-        #child {
-            width: 194px;
-            height: 194px;
-            border: 3px solid #0ff;
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            transition: all .5s linear;
-        }
+		#container {
+			width: 620px;
+			height: 620px;
+			padding: 10px;
+			border: 3px solid red;
+			position: relative;
+		}
+		#child {
+			width: 194px;
+			height: 194px;
+			border: 3px solid #0ff;
+			position: absolute;
+			top: 10px;
+			left: 10px;
+	        transition: all .5s linear;
+		}
     </style>
 
 </head>
@@ -31,56 +31,50 @@
 
 <body>
 
-    <div id="container">
-        <div id="child"></div>
-    </div>
+	<div id="container">
+		<div id="child"></div>
+	</div>
 
 </body>
 
 <script type="text/javascript">
 
-    var left = 37,
-        up = 38,
-        right = 39,
-        down = 40,
-        moveArrayLeft = [10,220,430],
-        moveArrayTop = [10,220,430],
-        leftCount = moveArrayLeft.length;
-        topCount = moveArrayTop.length;
-        childDiv = document.getElementById('child'),
-        current = [0,0];
-    window.onkeydown = (e) => {
-        switch(e.keyCode) {
-            case left:
-                current[0] -=1 ;
-                console.log(childDiv.offsetLeft);
-                break;
-            case up:
-                current[1] -=1 ;
-                console.log(childDiv.offsetTop);
-                break;
-            case right:
-                current[0] +=1 ;
-                console.log(childDiv.offsetLeft);
-                break;
-            case down:
-                current[1] +=1 ;
-                console.log(childDiv.offsetTop);
-                break;
-        }
-        if(current[0] < 0){
-            current[0] = 0;
-        }else if(current[0] > leftCount-1){
-            current[0] = 2
-        }
-        if(current[1] < 0){
-            current[1] = 0
-        }else if(current[1] > topCount-1){
-            current[1] = 2
-        }
-        childDiv.style.left = moveArrayLeft[current[0]] + 'px';
-        childDiv.style.top = moveArrayTop[current[1]] + 'px';
-    }
+	var left = 37,
+		up = 38,
+		right = 39,
+		down = 40,
+		childDiv = document.getElementById('child'),
+		moveW = childDiv.offsetWidth + childDiv.offsetLeft,
+		moveH = childDiv.offsetHeight + childDiv.offsetTop,
+		startT = 0,
+		endT = 0;
+	window.onkeydown = (e) => {
+		startT = new Date();
+		if (startT - endT >= 500) {
+			switch(e.keyCode) {
+				case left:
+					childDiv.style.left = childDiv.offsetLeft - moveW + 'px';
+					endT = new Date();
+					console.log(childDiv.offsetLeft);
+					break;
+				case up:
+					childDiv.style.top = childDiv.offsetTop - moveH + 'px';
+					endT = new Date();
+					console.log(childDiv.offsetTop);
+					break;
+				case right:
+					childDiv.style.left = childDiv.offsetLeft + moveW + 'px';
+					endT = new Date();
+					console.log(childDiv.offsetLeft);
+					break;
+				case down:
+					childDiv.style.top = childDiv.offsetTop + moveH + 'px';
+					endT = new Date();
+					console.log(childDiv.offsetTop);
+					break;
+			}
+		}
+	}
 
 </script>
 <!------分------割------线------>
