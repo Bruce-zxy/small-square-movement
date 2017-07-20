@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>移动div</title>
+	<style>
+		div{
+			margin: 0;
+			padding: 0;
+		}
+		#wrapper{
+			border:3px solid red;
+			padding:5px 0 0 5px;
+			width: 315px;
+			height: 315px;
+		}
+		#wrapper .red{
+			border:3px solid red;
+		}
+		.cell{
+			display: inline-block;
+			width: 94px;
+			height: 94px;
+			border:3px solid transparent;
+	        transition: all .25s ease-in;
+		}
+
+	</style>
+</head>
+<body>
+	<div id="wrapper">
+		<div class="cell red"></div>
+		<div class="cell"></div>
+		<div class="cell"></div>
+		<div class="cell"></div>
+		<div class="cell"></div>
+		<div class="cell"></div>
+		<div class="cell"></div>
+		<div class="cell"></div>
+		<div class="cell"></div>
+	</div>
+</body>
+<script>
+	var left = 37,
+		up = 38,
+		right = 39,
+		down = 40,
+		matrix = [left*up, up, right*up, left, 1, right, left*down, down, right*down]
+		coord = 0,
+		els = document.getElementsByClassName('cell');
+	window.onkeydown = (e)=>{
+		switch(e.keyCode){
+			case left:{
+				if(matrix[coord]%left) coord--;
+			};break;
+			case up:{
+				if(matrix[coord]%up) coord -= 3;
+			};break;
+			case right:{
+				if(matrix[coord]%right) coord++;
+			};break;
+			case down:{
+				if(matrix[coord]%down) coord += 3;
+			};break;
+
+		}
+		console.log(coord)
+		Array.prototype.forEach.call(els,(item,index)=>{
+			item.className = 'cell';
+			if(index === coord){
+				item.className = 'cell red';
+			}
+		});
+	}
+</script>
+<ml>
